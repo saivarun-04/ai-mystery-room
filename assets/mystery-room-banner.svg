@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#080b14"/><stop offset=".55" stop-color="#171827"/><stop offset="1" stop-color="#27151b"/></linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#67e8f9"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#fb7185"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+  <g fill="none" stroke="url(#neon)" opacity=".25">
+    <path d="M-100 260 Q250 80 550 260 T1300 180" stroke-width="2"><animate attributeName="d" dur="9s" repeatCount="indefinite" values="M-100 260 Q250 80 550 260 T1300 180;M-100 180 Q250 320 550 140 T1300 260;M-100 260 Q250 80 550 260 T1300 180"/></path>
+    <path d="M-100 300 Q250 120 550 300 T1300 220" stroke-width="1"><animate attributeName="d" dur="12s" repeatCount="indefinite" values="M-100 300 Q250 120 550 300 T1300 220;M-100 220 Q250 360 550 180 T1300 300;M-100 300 Q250 120 550 300 T1300 220"/></path>
+  </g>
+  <g fill="#c4b5fd" opacity=".55"><circle cx="140" cy="90" r="2"><animate attributeName="opacity" values=".1;.8;.1" dur="3s" repeatCount="indefinite"/></circle><circle cx="1020" cy="75" r="2"><animate attributeName="opacity" values=".8;.1;.8" dur="4s" repeatCount="indefinite"/></circle><circle cx="950" cy="285" r="3"><animate attributeName="opacity" values=".1;.7;.1" dur="5s" repeatCount="indefinite"/></circle></g>
+  <text x="600" y="145" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="22" letter-spacing="8" fill="#a5b4fc">ENTER THE UNKNOWN</text>
+  <text x="600" y="218" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="64" font-weight="800" fill="#f8fafc" filter="url(#glow)">AI MYSTERY ROOM</text>
+  <rect x="390" y="248" width="420" height="3" rx="2" fill="url(#neon)"/>
+  <text x="600" y="290" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="18" fill="#cbd5e1">Investigate. Connect the clues. Expose the truth.</text>
+</svg>
