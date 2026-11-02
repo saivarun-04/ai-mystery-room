@@ -1,0 +1,30 @@
+{
+  "name": "ai-mystery-room-backend",
+  "version": "1.0.0",
+  "description": "AI Mystery Room — server-side case generation, investigation, and scoring",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "build": "echo \"No build step for backend\""
+  },
+  "dependencies": {
+    "@google/genai": "^1.52.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.9.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.3",
+    "vitest": "^2.1.0"
+  }
+}

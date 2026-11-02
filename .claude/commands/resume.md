@@ -1,0 +1,1 @@
+Read PROGRESS.md only. In 3 lines say: current stage, last thing done, next action. Then continue the next action without asking questions. Read only the SPEC.md sections you need.

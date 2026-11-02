@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design Tokens ──────────────────────────────────────────────── */
+:root {
+  --midnight-navy: #0B1020;
+  --charcoal: #161B2B;
+  --burgundy: #6B1F2A;
+  --antique-gold: #C9A24B;
+  --paper: #E9E1CF;
+
+  --font-display: "Playfair Display", "Cormorant", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+/* ── Cinematic Theme Atmospherics ───────────────────────────────── */
+
+/* Theme-specific background tints */
+[data-theme="noir"] { --ambient-glow: rgba(201,162,75,0.04); }
+[data-theme="detective"] { --ambient-glow: rgba(180,130,60,0.05); }
+[data-theme="spy"] { --ambient-glow: rgba(100,150,200,0.05); }
+[data-theme="comedy"] { --ambient-glow: rgba(220,180,100,0.06); }
+[data-theme="historical"] { --ambient-glow: rgba(180,120,60,0.06); }
+
+/* Film grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grainShift 4s steps(28) infinite;
+}
+
+@keyframes grainShift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  30% { transform: translate(1%, -3%); }
+  50% { transform: translate(-3%, 1%); }
+  70% { transform: translate(3%, 2%); }
+  90% { transform: translate(2%, -1%); }
+}
+
+/* Vignette overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.5) 100%);
+}
+
+body {
+  background: var(--midnight-navy);
+  color: var(--paper);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ── Cinematic Background Layer ─────────────────────────────────── */
+.cinematic-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.cinematic-bg__grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  animation: grainMove 8s steps(20) infinite;
+}
+
+@keyframes grainMove {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-2%, -2%) rotate(1deg); }
+  50% { transform: translate(1%, -1%) rotate(-1deg); }
+  75% { transform: translate(-1%, 2%) rotate(0.5deg); }
+}
+
+.cinematic-bg__spotlight {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160vw;
+  height: 70vh;
+  background: radial-gradient(ellipse at center, var(--ambient-glow, rgba(201,162,75,0.05)) 0%, transparent 65%);
+  animation: spotlightFloat 10s ease-in-out infinite alternate;
+}
+
+@keyframes spotlightFloat {
+  0% { opacity: 0.6; transform: translateX(-50%) translateY(0) skewX(-2deg); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(20px) skewX(2deg); }
+}
+
+.cinematic-bg__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+}
+
+/* Left light beam (subtle) */
+.cinematic-bg__beam {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(201,162,75,0.05) 25%, rgba(201,162,75,0.02) 80%, transparent 100%);
+  filter: blur(2px);
+  animation: beamPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes beamPulse {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.8; }
+}
+
+/* Right atmospheric pillar */
+.cinematic-bg__pillar {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 1px;
+  height: 80%;
+  background: linear-gradient(to bottom, transparent, rgba(201,162,75,0.04), transparent);
+  filter: blur(1px);
+}
+
+/* Page content sits above atmospheric layers */
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography Enhancements ───────────────────────────────────── */
+
+/* Dramatic title treatment */
+.title-cinematic {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 0 40px rgba(201,162,75,0.05);
+}
+
+/* Stamped/watermark aesthetic */
+.stamp {
+  font-family: var(--font-display);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 700;
+  opacity: 0.08;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Gold accent shimmer (subtle) */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, var(--antique-gold), #e8d5a0, var(--antique-gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Card Atmospherics ──────────────────────────────────────────── */
+
+.card-dossier {
+  background: linear-gradient(145deg, rgba(22,27,43,0.85), rgba(11,16,32,0.9));
+  border: 1px solid rgba(107,31,42,0.35);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(233,225,207,0.03);
+  backdrop-filter: blur(8px);
+}
+
+.card-evidence {
+  background: linear-gradient(145deg, rgba(233,225,207,0.08), rgba(233,225,207,0.03));
+  border: 1px solid rgba(233,225,207,0.15);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(233,225,207,0.05);
+  backdrop-filter: blur(8px);
+}
+
+.card-suspect {
+  background: linear-gradient(145deg, rgba(22,27,43,0.9), rgba(22,27,43,0.7));
+  border: 1px solid rgba(107,31,42,0.25);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(233,225,207,0.02);
+  backdrop-filter: blur(6px);
+}
+
+/* ── Responsive Breakpoints ─────────────────────────────────────── */
+
+/* 320px – smallest phones */
+@media (max-width: 319px) {
+  .container { padding-left: 8px; padding-right: 8px; }
+  h1.font-display { font-size: 1.75rem !important; }
+  h2.font-display { font-size: 1.375rem !important; }
+}
+
+/* 320–359px */
+@media (min-width: 320px) and (max-width: 359px) {
+  .container { padding-left: 10px; padding-right: 10px; }
+  h1.font-display { font-size: 2rem !important; }
+  h2.font-display { font-size: 1.375rem !important; }
+  .grid-cols-3 { gap: 6px; }
+  .grid-cols-3 > * { padding: 8px 6px; }
+  .p-6 { padding: 0.875rem !important; }
+  .p-8 { padding: 1rem !important; }
+}
+
+/* 360–389px */
+@media (min-width: 360px) and (max-width: 389px) {
+  h1.font-display { font-size: 2.25rem !important; }
+  h2.font-display { font-size: 1.5rem !important; }
+  .grid-cols-3 > * { padding: 10px 8px; }
+  .gap-4 { gap: 0.75rem !important; }
+}
+
+/* 390px – standard target */
+@media (min-width: 390px) {
+  h1.font-display { font-size: 2.5rem !important; }
+}
+
+/* 768px – tablet */
+@media (min-width: 768px) {
+  .grid-cols-2-md { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  h1.font-display { font-size: 3rem !important; }
+}
+
+/* 1024px – small laptop */
+@media (min-width: 1024px) {
+  .container { max-width: 900px; }
+}
+
+/* 1280px+ – desktop */
+@media (min-width: 1280px) {
+  .container { max-width: 1024px; }
+}
+
+/* Horizontal-scroll prevention */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Prevent button clipping on very narrow screens */
+@media (max-width: 374px) {
+  button.btn-full-mobile { width: 100%; justify-content: center; }
+  .flex.gap-4 > * { flex: 1; min-width: 0; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  body::before,
+  body::after,
+  .cinematic-bg__grain,
+  .cinematic-bg__spotlight,
+  .cinematic-bg__beam,
+  .cinematic-bg__pillar,
+  .text-shimmer {
+    animation: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--antique-gold);
+  outline-offset: 2px;
+}
+
+/* Smooth page transitions */
+.page-enter {
+  animation: pageEnter 0.4s ease-out forwards;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

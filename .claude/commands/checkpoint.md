@@ -1,0 +1,1 @@
+Update PROGRESS.md: tick finished stages, add decisions made, working commands, known issues, and a precise "Next action" (file names + what to do). Make a git commit with a meaningful message (verify no secrets staged). Then tell me to run /clear (or /compact) and stop.
